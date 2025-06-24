@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huseyn Bagirli - DevOps Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .floating-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            opacity: 0.05;
+            animation: float 6s ease-in-out infinite;
+            font-size: 2em;
+        }
+        
+        .floating-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .floating-icon:nth-child(3) { top: 60%; left: 5%; animation-delay: 2s; }
+        .floating-icon:nth-child(4) { top: 70%; right: 10%; animation-delay: 3s; }
+        .floating-icon:nth-child(5) { top: 40%; left: 80%; animation-delay: 4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+        
+        .header-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: particle-float 8s linear infinite;
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 90%; animation-delay: 1s; }
+        
+        @keyframes particle-float {
+            0% { transform: translateY(100px) scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .name {
+            font-size: 3em;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.1); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2); }
+        }
+        
+        .title {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9em;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .contact-icon {
+            font-size: 1.2em;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+        }
+        
+        .sidebar {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px;
+            border-right: 1px solid #e9ecef;
+            position: relative;
+        }
+        
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #3498db, transparent);
+        }
+        
+        .content {
+            padding: 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            animation: titleUnderline 2s ease-in-out infinite;
+        }
+        
+        @keyframes titleUnderline {
+            0%, 100% { width: 0; }
+            50% { width: 100px; }
+        }
+        
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 5px 15px rgba(52, 152, 219, 0.5); }
+        }
+        
+        .job {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .job::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #3498db, #2980b9, #e74c3c, #f39c12);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .job:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+        }
+        
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .company {
+            color: #3498db;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .duration {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .location {
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 25px;
+            font-size: 0.8em;
+            font-weight: 500;
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+        
+        .cert {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #e74c3c;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .cert:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.15);
+        }
+        
+        .cert-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .cert-issuer {
+            color: #e74c3c;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .cert-date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .education {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #9b59b6;
+            transition: all 0.3s ease;
+        }
+        
+        .education:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.15);
+        }
+        
+        .degree {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .university {
+            color: #9b59b6;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .course-list {
+            margin-top: 15px;
+        }
+        
+        .course-list li {
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.9em;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .course-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-size: 0.8em;
+        }
+        
+        .devops-expertise {
+            margin-top: 20px;
+        }
+        
+        .expertise-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .expertise-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.05), transparent);
+            transition: right 0.5s ease;
+        }
+        
+        .expertise-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
+        }
+        
+        .expertise-item:hover::after {
+            right: 100%;
+        }
+        
+        .expertise-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .expertise-header h3 {
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .expertise-item p {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .pipeline-icon {
+            width: 40px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        .flow-step {
+            width: 8px;
+            height: 8px;
+            background: #3498db;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .flow-connector {
+            width: 12px;
+            height: 2px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+        
+        .container-icon {
+            width: 40px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .container-layer {
+            width: 30px;
+            height: 6px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 2px;
+            opacity: 0.8;
+        }
+        
+        .container-layer:nth-child(2) {
+            width: 25px;
+            margin-left: 3px;
+        }
+        
+        .container-layer:nth-child(3) {
+            width: 20px;
+            margin-left: 6px;
+        }
+        
+        .monitoring-icon {
+            width: 40px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .monitoring-chart {
+            display: flex;
+            align-items: end;
+            gap: 2px;
+            height: 25px;
+        }
+        
+        .chart-bar {
+            width: 6px;
+            background: linear-gradient(0deg, #3498db, #2980b9);
+            border-radius: 2px 2px 0 0;
+            animation: chartGrow 3s infinite;
+        }
+        
+        .automation-icon {
+            width: 40px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .automation-gears {
+            position: relative;
+            width: 30px;
+            height: 30px;
+        }
+        
+        .gear {
+            position: absolute;
+            border: 3px solid #3498db;
+            border-radius: 50%;
+        }
+        
+        .gear::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid #2980b9;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent 30%, #3498db 30%, #3498db 70%, transparent 70%);
+        }
+        
+        .gear-1 {
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            animation: rotate 4s linear infinite;
+        }
+        
+        .gear-2 {
+            width: 12px;
+            height: 12px;
+            top: 8px;
+            right: 0;
+            animation: rotate 4s linear infinite reverse;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+        
+        @keyframes chartGrow {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.3); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.2em;
+        }
+        
+        .print-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .name {
+                font-size: 2em;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+            
+            .sidebar, .content {
+                padding: 20px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .floating-icons {
+                display: none;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            
+            .print-button, .floating-icons {
+                display: none !important;
+            }
+            
+            .header {
+                background: #2c3e50 !important;
+                color: white !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-icons">
+        <div class="floating-icon">🐧</div>
+        <div class="floating-icon">🐳</div>
+        <div class="floating-icon">☸️</div>
+        <div class="floating-icon">⚙️</div>
+        <div class="floating-icon">🔧</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+            <div class="header-content">
+                <h1 class="name">Huseyn Bagirli</h1>
+                <p class="title">Linux Systems Engineer | DevOps Engineer | RHCSA | CKA</p>
+                
+                <div class="contact-info">
+                    <a href="tel:055-752-88-78" class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <span>055-752-88-78</span>
+                    </a>
+                    <a href="mailto:bagirlihuseyn089@gmail.com" class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <span>bagirlihuseyn089@gmail.com</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/huseyn-bag%C4%B1rl%C4%B1-a004571ab/" target="_blank" class="contact-item">
+                        <span class="contact-icon">💼</span>
+                        <span>LinkedIn Profile</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏆</span>
+                        Certifications
+                    </h2>
+                    
+                    <div class="cert">
+                        <div class="cert-title">Certified Kubernetes Administrator (CKA)</div>
+                        <div class="cert-issuer">The Linux Foundation</div>
+                        <div class="cert-date">Feb 2025 - Mar 2027</div>
+                        <div style="margin-top: 10px;">
+                            <a href="https://www.credly.com/badges/10f7fbe2-39ed-43fe-b0e3-aa8c23b5d260/public_url" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.9em;">🔗 View Certificate</a>
+                        </div>
+                    </div>
+                    
+                    <div class="cert">
+                        <div class="cert-title">Red Hat Certified System Administrator (RHCSA)</div>
+                        <div class="cert-issuer">Red Hat</div>
+                        <div class="cert-date">Dec 2023 - Dec 2026</div>
+                        <div style="margin-top: 10px;">
+                            <a href="https://rhtapps.redhat.com/verify?certId=230-281-909" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.9em;">🔗 Verify Certificate</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">🎓</span>
+                        Education
+                         Education
+                    </h2>
+                    
+                    <div class="education">
+                        <div class="degree">Electrical, Electronics and Communication Engineering</div>
+                        <div class="university">Azerbaijan Technical University</div>
+                        <div class="cert-date">Sep 2018 - Jun 2022</div>
+                    </div>
+                    
+                    <div class="education">
+                        <div class="degree">RHCE (RH294), Linux Engineer and RHCE - Linux Automation with Ansible</div>
+                        <div class="university">Ingress Academy</div>
+                        <div class="cert-date">Jan 2024 - Jun 2024</div>
+                        <div class="course-list">
+                            <ul>
+                                <li>BIND DNS server</li>
+                                <li>NFS, Samba</li>
+                                <li>MariaDB</li>
+                                <li>Tomcat</li>
+                                <li>Certificate Authority server</li>
+                                <li>Apache</li>
+                                <li>Nginx</li>
+                                <li>Haproxy</li>
+                                <li>Troubleshoot and Monitoring</li>
+                                <li>Bash scripting</li>
+                                <li>Zabbix</li>
+                                <li>Ansible Automation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="education">
+                        <div class="degree">DevOps Engineer</div>
+                        <div class="university">Ingress Academy</div>
+                        <div class="cert-date">Sep 2024</div>
+                        <div class="course-list">
+                            <ul>
+                                <li>Introduction to DevOps</li>
+                                <li>Docker</li>
+                                <li>Message Queue - Kafka</li>
+                                <li>KV Store - HashiCorp Vault</li>
+                                <li>Microservices with Kubernetes</li>
+                                <li>Helm Templating</li>
+                                <li>Kubernetes Networking</li>
+                                <li>Limits & Configurations</li>
+                                <li>Managing the cluster</li>
+                                <li>Managing Roles & State</li>
+                                <li>Istio</li>
+                                <li>ELK Stack</li>
+                                <li>Prometheus</li>
+                                <li>CI/CD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">💼</span>
+                        Professional Experience
+                    </h2>
+                    
+                    <div class="job">
+                        <div class="job-title">Linux & DevOps Engineer</div>
+                        <div class="company">Cybernet LLC</div>
+                        <div class="duration">Mar 2025 - Present (4 months)</div>
+                        <div class="location">On-site</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">HaProxy</span>
+                            <span class="skill-tag">Git , Gitlab </span>
+                            <span class="skill-tag">Linux Administration</span>
+                            <span class="skill-tag">DevOps</span>
+                            <span class="skill-tag">System Configuration</span>
+                            <span class="skill-tag">Bind Dns</span>
+                            <span class="skill-tag"> CI CD Pipeline</span>
+                            <span class="skill-tag">Tomcat , Jboss</span>
+                        </div>
+                    </div>
+                    
+                    <div class="job">
+                        <div class="job-title">Linux Engineer</div>
+                        <div class="company">Ministry of Taxes, the Republic of Azerbaijan</div>
+                        <div class="duration">May 2024 - Present (1 year 2 months)</div>
+                        <div class="location">Baku, Baku Economic Region, Azerbaijan</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">HaProxy</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Linux System Administration</span>
+                            <span class="skill-tag">Government Systems</span>
+                            <span class="skill-tag">Infrastructure Management</span>
+                        </div>
+                    </div>
+                    
+                    <div class="job">
+                        <div class="job-title">IT Specialist</div>
+                        <div class="company">AVICOM LLC</div>
+                        <div class="duration">Jan 2023 - Oct 2023 (4 months)</div>
+                        <div class="location">On-site</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Virtualization</span>
+                            <span class="skill-tag">Routing</span>
+                            <span class="skill-tag">Network Administration</span>
+                            <span class="skill-tag">Technical Support</span>
+                            <span class="skill-tag">System Maintenance</span>
+                        </div>
+                    </div>
+                    
+                    <div class="job">
+                        <div class="job-title">Help Desk Specialist</div>
+                        <div class="company">APA Group</div>
+                        <div class="duration">Apr 2022 - Jan 2023 (1 year 4 months)</div>
+                        <div class="location">Baku, Contiguous Azerbaijan, Azerbaijan</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">VMware vSphere</span>
+                            <span class="skill-tag">Network Troubleshooting</span>
+                            <span class="skill-tag">Technical Support</span>
+                            <span class="skill-tag">System Administration</span>
+                            <span class="skill-tag">User Support</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">⚡</span>
+                        Core Skills
+                    </h2>
+                    
+                    <div class="skills-list">
+                        <span class="skill-tag">Linux System Administration</span>
+                        <span class="skill-tag">DevOps Engineering</span>
+                        <span class="skill-tag">Kubernetes (CKA Certified)</span>
+                        <span class="skill-tag">Red Hat Enterprise Linux (RHCSA)</span>
+                        <span class="skill-tag">Docker Containerization</span>
+                        <span class="skill-tag">CI/CD Pipeline Development</span>
+                        <span class="skill-tag">Git/GitLab Management</span>
+                        <span class="skill-tag">Infrastructure as Code</span>
+                        <span class="skill-tag">Ansible Automation</span>
+                        <span class="skill-tag">Nginx Web Server</span>
+                        <span class="skill-tag">Apache Web Server</span>
+                        <span class="skill-tag">HaProxy Load Balancing</span>
+                        <span class="skill-tag">Apache Kafka</span>
+                        <span class="skill-tag">HashiCorp Vault</span>
+                        <span class="skill-tag">Argo-CD</span>
+                        <span class="skill-tag">Helm Templating</span>
+                        <span class="skill-tag">Microservices Architecture</span>
+                        <span class="skill-tag">Istio</span>
+                        <span class="skill-tag">Service Mesh</span>
+                        <span class="skill-tag">ELK Stack (Elasticsearch, Logstash, Kibana)</span>
+                        <span class="skill-tag">Prometheus Monitoring</span>
+                        <span class="skill-tag">Zabbix Monitoring</span>
+                        <span class="skill-tag">VMware vSphere</span>
+                        <span class="skill-tag">BIND DNS Server</span>
+                        <span class="skill-tag">NFS & Samba</span>
+                        <span class="skill-tag">MariaDB Database</span>
+                        <span class="skill-tag">Tomcat Application Server</span>
+                        <span class="skill-tag">Certificate Authority</span>
+                        <span class="skill-tag">Network Administration</span>
+                        <span class="skill-tag">System Security</span>
+                        <span class="skill-tag">Backup & Recovery Systems</span>
+                        <span class="skill-tag">Shell Scripting</span>
+                        <span class="skill-tag">Bash Scripting</span>
+                        <span class="skill-tag">Troubleshooting</span>
+                        <span class="skill-tag">Cloud Technologies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

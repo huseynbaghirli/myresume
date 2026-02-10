@@ -957,6 +957,7 @@
         📄
     </button>
 
+    <style id="pdf-boost-styles"></style>
     <script>
         function downloadPDF() {
             var button = document.querySelector('.print-button');
@@ -965,6 +966,38 @@
             var floatingIcons = document.querySelector('.floating-icons');
             floatingIcons.style.display = 'none';
 
+            var boostCSS = document.getElementById('pdf-boost-styles');
+            boostCSS.textContent = '\
+                .header { background: #2c3e50 !important; }\
+                .name { color: #ffffff !important; text-shadow: none !important; font-weight: 400 !important; }\
+                .title { color: #ffffff !important; opacity: 1 !important; }\
+                .contact-item { background: rgba(255,255,255,0.15) !important; color: #ffffff !important; }\
+                .contact-item span { color: #ffffff !important; }\
+                .section-title { color: #2c3e50 !important; border-bottom-color: #3498db !important; }\
+                .section-title::after { display: none !important; }\
+                .section-icon { background: #3498db !important; }\
+                .skill-tag { background: #2980b9 !important; color: #ffffff !important; font-weight: 600 !important; box-shadow: none !important; }\
+                .job { border-left: 4px solid #3498db !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; }\
+                .job::before { display: none !important; }\
+                .job-title { color: #2c3e50 !important; font-weight: 700 !important; }\
+                .company { color: #3498db !important; font-weight: 600 !important; }\
+                .duration { color: #555555 !important; }\
+                .location { color: #666666 !important; }\
+                .cert { border-left: 4px solid #e74c3c !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; }\
+                .cert-title { color: #2c3e50 !important; font-weight: 700 !important; }\
+                .cert-issuer { color: #e74c3c !important; font-weight: 600 !important; }\
+                .cert-date { color: #555555 !important; }\
+                .education { border-left: 4px solid #9b59b6 !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; }\
+                .degree { color: #2c3e50 !important; font-weight: 700 !important; }\
+                .university { color: #9b59b6 !important; font-weight: 600 !important; }\
+                .sidebar { background: #f0f2f5 !important; }\
+                .sidebar::before { display: none !important; }\
+                .content { background: #fafafa !important; }\
+                .course-list li { color: #333333 !important; }\
+                .course-list li::before { color: #3498db !important; }\
+                * { animation: none !important; transition: none !important; }\
+            ';
+
             var element = document.querySelector('.container');
 
             var opt = {
@@ -972,26 +1005,23 @@
                 filename:     'Huseyn_Bagirli_CV.pdf',
                 image:        { type: 'png' },
                 html2canvas:  {
-                    scale: 6,
+                    scale: 4,
                     useCORS: true,
                     letterRendering: true,
                     logging: false,
-                    backgroundColor: '#ffffff',
-                    dpi: 300,
-                    windowWidth: element.scrollWidth,
-                    windowHeight: element.scrollHeight
+                    backgroundColor: '#ffffff'
                 },
                 jsPDF:        {
                     unit: 'mm',
                     format: 'a4',
                     orientation: 'portrait',
-                    compress: false,
-                    hotfixes: ['px_scaling']
+                    compress: false
                 },
                 pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
             };
 
             html2pdf().set(opt).from(element).save().then(function() {
+                boostCSS.textContent = '';
                 button.style.display = '';
                 floatingIcons.style.display = '';
             });

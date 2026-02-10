@@ -972,16 +972,21 @@
                 filename:     'Huseyn_Bagirli_CV.pdf',
                 image:        { type: 'png' },
                 html2canvas:  {
-                    scale: 4,
+                    scale: 6,
                     useCORS: true,
                     letterRendering: true,
                     logging: false,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    dpi: 300,
+                    windowWidth: element.scrollWidth,
+                    windowHeight: element.scrollHeight
                 },
                 jsPDF:        {
                     unit: 'mm',
                     format: 'a4',
-                    orientation: 'portrait'
+                    orientation: 'portrait',
+                    compress: false,
+                    hotfixes: ['px_scaling']
                 },
                 pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
             };

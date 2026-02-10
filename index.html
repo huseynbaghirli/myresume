@@ -970,12 +970,13 @@
             var opt = {
                 margin:       0,
                 filename:     'Huseyn_Bagirli_CV.pdf',
-                image:        { type: 'jpeg', quality: 1 },
+                image:        { type: 'png' },
                 html2canvas:  {
-                    scale: 3,
+                    scale: 4,
                     useCORS: true,
                     letterRendering: true,
-                    logging: false
+                    logging: false,
+                    backgroundColor: '#ffffff'
                 },
                 jsPDF:        {
                     unit: 'mm',

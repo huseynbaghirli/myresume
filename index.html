@@ -689,19 +689,32 @@
                 background: white !important;
                 padding: 0 !important;
             }
-            
+
             .container {
                 box-shadow: none !important;
                 border-radius: 0 !important;
+                overflow: visible !important;
             }
-            
+
+            .main-content {
+                display: block !important;
+            }
+
+            .sidebar, .content {
+                width: 100% !important;
+            }
+
             .print-button, .floating-icons {
                 display: none !important;
             }
-            
+
             .header {
                 background: #2c3e50 !important;
                 color: white !important;
+            }
+
+            .job, .cert, .education, .section {
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -1000,16 +1013,21 @@
 
             var element = document.querySelector('.container');
 
+            element.style.overflow = 'visible';
+            document.querySelector('.main-content').style.display = 'block';
+
             var opt = {
-                margin:       0,
+                margin:       [0, 0, 0, 0],
                 filename:     'Huseyn_Bagirli_CV.pdf',
-                image:        { type: 'png' },
+                image:        { type: 'png', quality: 1 },
                 html2canvas:  {
-                    scale: 4,
+                    scale: 2,
                     useCORS: true,
                     letterRendering: true,
                     logging: false,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    scrollY: 0,
+                    windowHeight: element.scrollHeight
                 },
                 jsPDF:        {
                     unit: 'mm',
@@ -1017,11 +1035,13 @@
                     orientation: 'portrait',
                     compress: false
                 },
-                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+                pagebreak:    { mode: ['css', 'legacy'], avoid: ['.job', '.cert', '.education', '.section'] }
             };
 
             html2pdf().set(opt).from(element).save().then(function() {
                 boostCSS.textContent = '';
+                element.style.overflow = '';
+                document.querySelector('.main-content').style.display = '';
                 button.style.display = '';
                 floatingIcons.style.display = '';
             });

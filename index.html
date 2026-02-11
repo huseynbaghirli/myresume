@@ -1027,5 +1027,32 @@
             });
         }
     </script>
+    <script>
+        // Auto-renew duration for "Present" jobs
+        (function() {
+            const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            document.querySelectorAll('.duration').forEach(function(el) {
+                const text = el.textContent.trim();
+                if (!text.includes('Present')) return;
+                // Parse "Mon YYYY - Present (...)"
+                const match = text.match(/^([A-Za-z]+)\s+(\d{4})\s*-\s*Present/);
+                if (!match) return;
+                const monthIndex = monthNames.indexOf(match[1]);
+                const year = parseInt(match[2]);
+                if (monthIndex === -1) return;
+                const start = new Date(year, monthIndex, 1);
+                const now = new Date();
+                let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+                if (months < 0) months = 0;
+                const y = Math.floor(months / 12);
+                const m = months % 12;
+                let durationStr = '';
+                if (y > 0) durationStr += y + (y === 1 ? ' year' : ' years');
+                if (y > 0 && m > 0) durationStr += ' ';
+                if (m > 0 || y === 0) durationStr += m + (m === 1 ? ' month' : ' months');
+                el.textContent = match[1] + ' ' + match[2] + ' - Present (' + durationStr + ')';
+            });
+        })();
+    </script>
 </body>
 </html> 
